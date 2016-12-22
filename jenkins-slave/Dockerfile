@@ -26,9 +26,12 @@ RUN apt-get -q update &&\
     DEBIAN_FRONTEND="noninteractive" apt-get -q install -y -o Dpkg::Options::="--force-confnew"  --no-install-recommends openjdk-7-jre-headless &&\
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
+#delete
+RUN sed -i 's/PermitRootLogin without-password//g' /etc/ssh/sshd_config
+
 # Set user jenkins to the image
-RUN useradd -m -d /home/jenkins -s /bin/sh jenkins &&\
-    echo "jenkins:jenkins" | chpasswd
+#  useradd -m -d /home/root -s /bin/sh root &&\
+RUN echo "root:passwd" | chpasswd root
 
 # Standard SSH port
 EXPOSE 22
